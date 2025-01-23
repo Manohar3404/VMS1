@@ -7,6 +7,7 @@ namespace VMS1.Areas.User.Controllers
         public IActionResult Index()
         {
             return View();
+
         }
     }
 }
