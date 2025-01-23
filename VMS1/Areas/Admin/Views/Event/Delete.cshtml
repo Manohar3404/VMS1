@@ -1,0 +1,42 @@
+﻿@model Event;
+<form method="post" class="border p-3">
+    <div class="row mb-2 text-primary">
+        <h1>Remove Event</h1>
+    </div>
+    <input asp-for="Id" hidden class="form-control" />
+    @* <div asp-validation-summary="All"></div> *@
+    <div class="row">
+        <label asp-for="Name" class="p-0"></label>
+        <input asp-for="Name" class="form-control" disabled />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="row mt-2">
+        <label asp-for="Description" class="p-0"></label>
+        <textarea asp-for="Description" class="form-control" rows="5" disabled></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="row mt-2">
+        <label asp-for="City" class="p-0"></label>
+        <input asp-for="City" class="form-control" disabled />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+    <div class="row mt-2">
+        <label asp-for="Date" class="p-0"></label>
+        <input asp-for="Date" class="form-control" type="date" disabled />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+
+
+    <div class="row mt-4 p-0">
+        <div class="col-6 col-md-3">
+            <button class="btn btn-danger" type="submit" asp-controller="Event" asp-action="Delete">Delete Event</button>
+        </div>
+        <div class="col-6 col-md-3">
+            <a class="btn btn-outline-primary" asp-controller="Event" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

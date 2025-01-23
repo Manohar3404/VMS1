@@ -1,0 +1,74 @@
+﻿@model EventViewModel
+ 
+<div class="container">
+    <div class="row d-flex">
+        <div class="col-6">
+            <h1 class="h4 m-0">Event Details</h1>
+        </div>
+        @if(User.IsInRole(SD.Role_Admin))
+        {
+            <div class="col-6 text-end pb-2">
+                <a asp-controller="Event" asp-action="Create" class="btn btn-dark">Create Event</a>
+            </div>
+        }else
+        {
+
+            <div class="col-6 text-end pb-2">
+                <a asp-area="User" asp-controller="Registration" asp-action="RegisteredEvents" class="btn btn-dark">Registered Events</a>
+            </div>
+        }
+
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>City</th>
+            <th>Description</th>
+            <th>Date</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.Events)
+        {
+            <tr>
+                <td>@obj.Name</td>
+                <td>@obj.City</td>
+                <td>@obj.Description</td>
+                <td>@obj.Date</td>
+
+
+                <td class="d-flex align-items-center justify-content-center">
+                    @if (User.IsInRole(SD.Role_Admin))
+                    {
+                        <div class="d-flex align-items-center" style="gap: 10px;">
+                            <a class="btn btn-dark " asp-controller="Event" asp-action="Edit" asp-route-id="@obj.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                            <a class="btn btn-danger " asp-controller="Event" asp-action="Delete" asp-route-id="@obj.Id"><i class="bi bi-trash3-fill"></i>Delete</a>
+                        </div>
+                    }
+                    else
+                    {
+                        @if (!Model.EventIds.ContainsKey(obj.Id))
+                        {
+                            <div class="d-flex align-items-center" style="gap: 10px; text-align:center">
+                                <a class="btn btn-success" asp-area="User" asp-controller="Registration" asp-action="Register" asp-route-id="@obj.Id"><i class="bi bi-pencil-square"></i>Register</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center" style="gap: 10px; text-align:center">
+                                <a class="btn btn-danger" asp-area="User" asp-controller="Registration" asp-action="Cancel" asp-route-id="@Model.EventIds[obj.Id]"><i class="bi bi-pencil-square"></i>Cancel</a>
+                            </div>
+                        }
+                    }
+                </td>
+                
+
+            </tr>
+          
+        }
+    </tbody>
+</table>

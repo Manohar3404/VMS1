@@ -1,0 +1,19 @@
+﻿@model VolunteerRegistrations
+
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1>@Model.Event.Name</h1>
+        </div>
+        <div class="card-body">
+            <p><strong>City:</strong> @Model.Event.City</p>
+            <p><strong>Description:</strong> @Model.Event.Description</p>
+            <p><strong>Date:</strong> @Model.Event.Date.ToString("yyyy-MM-dd")</p>
+            <form asp-action="Cancel" method="post">
+                <input type="hidden" name="eventId" value="@Model.RegistrationId" />
+                <button type="submit" class="btn btn-danger">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

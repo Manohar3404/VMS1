@@ -1,0 +1,41 @@
+﻿@model Event;
+<form method="post" class="border p-3">
+    <div class="row mb-2 text-primary">
+        <h1>Create Event</h1>
+    </div>
+    @* <div asp-validation-summary="All"></div> *@
+    <div class="row">
+        <label asp-for="Name" class="p-0"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="row mt-2">
+        <label asp-for="Description" class="p-0"></label>
+        <textarea asp-for="Description" class="form-control" rows="5" ></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="row mt-2">
+        <label asp-for="City" class="p-0"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+    <div class="row mt-2">
+        <label asp-for="Date" class="p-0"></label>
+        <input asp-for="Date" class="form-control" type="date" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+   
+
+    <div class="row mt-4 p-0">
+        <div class="col-6 col-md-3">
+            <button class="btn btn-primary" type="submit" asp-controller="Event" asp-action="Create">Create Event</button>
+        </div>
+        <div class="col-6 col-md-3">
+            <a class="btn btn-outline-primary" asp-controller="Event" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
