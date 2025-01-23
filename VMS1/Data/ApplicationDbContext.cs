@@ -12,6 +12,7 @@ namespace VMS1.Data
        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
        public DbSet<Event> Events { get; set; }
         public DbSet<VolunteerRegistrations> VolunteerRegistrations { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

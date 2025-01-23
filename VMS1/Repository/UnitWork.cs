@@ -11,6 +11,7 @@ namespace VMS1.Repository
         public IEventRepository Events { get; private set; }
 
         public IVolunteerRegistrationsRepository VolunteerRegistrations { get; private set; }
+        public IFeedbackRepository Feedback { get; private set; }
 
         private readonly ApplicationDbContext _db;
 
@@ -19,6 +20,8 @@ namespace VMS1.Repository
             _db = db;
             Events = new EventRepository(_db);
             VolunteerRegistrations = new VolunteerRegistrationsRepository(_db);
+            Feedback = new FeedbackRepository(_db);
+
         }
         public void Save()
         {
