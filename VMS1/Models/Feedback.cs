@@ -6,6 +6,8 @@ namespace VMS1.Models
     {
         public int FeedbackId { get; set; }
         public int EventId { get; set; }
+        [ForeignKey("EventId")]
+        public Event Event { get; set; }    
         public string VolunteerId { get; set; }
         [ForeignKey("VolunteerId")]
         public  ApplicationUser ApplicationUser {get; set;}

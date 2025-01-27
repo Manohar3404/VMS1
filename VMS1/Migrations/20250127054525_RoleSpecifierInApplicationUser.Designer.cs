@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VMS1.Data;
 
@@ -11,9 +12,11 @@ using VMS1.Data;
 namespace VMS1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127054525_RoleSpecifierInApplicationUser")]
+    partial class RoleSpecifierInApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,8 +287,6 @@ namespace VMS1.Migrations
 
                     b.HasKey("FeedbackId");
 
-                    b.HasIndex("EventId");
-
                     b.HasIndex("VolunteerId");
 
                     b.ToTable("Feedbacks");
@@ -387,12 +388,6 @@ namespace VMS1.Migrations
 
             modelBuilder.Entity("VMS1.Models.Feedback", b =>
                 {
-                    b.HasOne("VMS1.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VMS1.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("VolunteerId")
@@ -400,8 +395,6 @@ namespace VMS1.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
-
-                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("VMS1.Models.VolunteerRegistrations", b =>

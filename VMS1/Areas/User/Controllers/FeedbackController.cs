@@ -37,9 +37,15 @@ namespace VMS1.Areas.User.Controllers
         [HttpPost]
         public IActionResult AddFeedback(FeedbackViewModel obj,int Rating)
         {
+            if (obj.Feedback.FeedbackId==null)
+            {
+                obj.Feedback.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
+
+            }
             if (Rating != 0)
             {
                 obj.Feedback.Rating = Rating;
+              
             }
             _unitwork.Feedback.Add(obj.Feedback);
             _unitwork.Save();

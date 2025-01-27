@@ -20,7 +20,7 @@ namespace VMS1.Areas.Admin.Controllers
          
             _unitwork = unitwork;
         }
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin")]
         public IActionResult Index()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;

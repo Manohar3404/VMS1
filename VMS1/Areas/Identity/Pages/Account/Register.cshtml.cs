@@ -142,6 +142,7 @@ namespace VMS1.Areas.Identity.Pages.Account
                 user.Name = Input.Name;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.City = Input.City;
+                user.RoleSpecifier = 0;
 
                 if (result.Succeeded)
                 {
@@ -154,6 +155,7 @@ namespace VMS1.Areas.Identity.Pages.Account
                     else
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
+                        user.RoleSpecifier = 1;
                     }
 
                     var userId = await _userManager.GetUserIdAsync(user);

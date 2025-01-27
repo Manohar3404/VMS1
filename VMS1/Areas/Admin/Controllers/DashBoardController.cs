@@ -19,8 +19,14 @@ namespace VMS1.Areas.Admin.Controllers
         [Area("Admin")]
         public IActionResult VolunteersList()
         {
-            IEnumerable<ApplicationUser> Volunteers = _unitWork.ApplicationUsers.GetAll();
+            IEnumerable<ApplicationUser> Volunteers = _unitWork.ApplicationUsers.GetAll(x=>x.RoleSpecifier==0);
             return View(Volunteers);
         }
+        public IActionResult Feedbacks()
+        {
+            IEnumerable<Feedback> feedbacks = _unitWork.Feedbacks.GetAll(null,"Event,ApplicationUser");
+            return View(feedbacks);
+        }
     }
+    
 }

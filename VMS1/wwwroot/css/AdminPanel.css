@@ -49,3 +49,12 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+#VolunteerLink{
+    text-decoration: none;
+    color: inherit; /* Inherit the color from the parent element */
+}
+
+    #VolunteerLink:hover {
+        text-decoration: none; /* Ensure no underline on hover */
+        color: inherit; /* Ensure color doesn't change on hover */
+    }

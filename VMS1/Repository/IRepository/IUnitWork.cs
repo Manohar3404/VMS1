@@ -7,6 +7,7 @@
         public IVolunteerRegistrationsRepository VolunteerRegistrations { get; }
         public IFeedbackRepository Feedback { get; }
         public IApplicationUserRepository ApplicationUsers { get; }
+        public IFeedbackRepository Feedbacks { get; }
         void Save();
     }
 }
