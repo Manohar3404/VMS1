@@ -1,0 +1,55 @@
+﻿ <!-- Welcome Section -->
+<div class="container mt-4">
+    <div class="welcome-section">
+        <h1>Welcome, Admin!</h1>
+        <p class="lead">Manage your platform efficiently and effortlessly from this dashboard.</p>
+        <button class="btn btn-primary mt-3">Get Started</button>
+    </div>
+
+    <!-- Icon Cards Section -->
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="icon-card">
+                <i class="bi bi-calendar-event"></i>
+                <h4 class="mt-3">Manage Events</h4>
+                <p>Access and manage all events.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <a asp-action="VolunteersList" asp-controller="DashBoard"  asp-area="Admin">
+            <div class="icon-card">
+                <i class="bi bi-people"></i>
+                <h4 class="mt-3">Volunteers</h4>
+                <p>Track and manage volunteers.</p>
+            </div>
+            </a>
+        </div>
+       
+        <div class="col-md-4">
+            <div class="icon-card">
+                <i class="bi bi-chat-dots"></i>
+                <h4 class="mt-3">Feedback</h4>
+                <p>View feedback from events.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll('.icon-card');
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('animate');
+            }, index * 200); // Delay each card's animation
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll('.icon-card');
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('animate');
+            }, index * 200); // Delay each card's animation
+        });
+    });
+</script>

@@ -1,0 +1,51 @@
+﻿.nav-link.active {
+    font-weight: bold;
+    color: #0d6efd !important;
+}
+
+.welcome-section {
+    text-align: center;
+    background: #f8f9fa;
+    padding: 50px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.icon-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .icon-card i {
+        font-size: 40px;
+        color: #0d6efd;
+    }
+
+.icon-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+    .icon-card.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+.icon-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+    .icon-card.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .icon-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }

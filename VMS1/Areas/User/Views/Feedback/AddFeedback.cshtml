@@ -1,0 +1,27 @@
+﻿@model FeedbackViewModel
+<div class="container mt-4">
+    <h2>Feedback for @Model.VolunteerRegistrations.Event.Name</h2>
+    <form method="post" asp-action="AddFeedback" asp-controller="Feedback">
+        <div class="form-group d-flex align-items-center">
+            <!-- From Uiverse.io by andrew-demchenk0 -->
+            <label asp-for="@Model.Feedback.Rating" class="mr-3">Rating:</label>
+            <div class="rating">
+                @for (int i = 5; i >= 1; i--)
+                {
+                    <input value="@i" name="Rating" id="star@i" type="radio" @(Model.Feedback.Rating == i ? "checked" : "") />
+                    <label title="Rate @i stars" for="star@i"></label>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Feedback.FeedbackText">Your Feedback:</label>
+            <textarea asp-for="@Model.Feedback.FeedbackText" class="form-control" rows="5" placeholder="Write your feedback here..."></textarea>
+            <span asp-validation-for="@Model.Feedback.FeedbackText" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="@Model.Feedback.VolunteerId" value="@Model.VolunteerRegistrations.VolunteerId" />
+        <input type="hidden" asp-for="@Model.Feedback.EventId" value="@Model.VolunteerRegistrations.EventId" />
+        <button type="submit" class="btn btn-primary mt-2">
+            @(Model.Feedback.FeedbackId != 0 ? "Update" : "Submit")
+        </button>
+    </form>
+</div>

@@ -10,7 +10,7 @@ using VMS1.Utility;
 namespace VMS1.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = SD.Role_Admin)]
+    [Authorize(Roles = "Admin,User")]
     public class EventController : Controller
     {
      
@@ -20,7 +20,7 @@ namespace VMS1.Areas.Admin.Controllers
          
             _unitwork = unitwork;
         }
-        [AllowAnonymous]
+        [Authorize(Roles = "User")]
         public IActionResult Index()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
