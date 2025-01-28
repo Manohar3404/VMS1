@@ -1,39 +1,43 @@
-﻿/* From Uiverse.io by andrew-demchenk0 */
-.rating:not(:checked) > input {
-    position: absolute;
-    appearance: none;
+﻿.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
 }
 
-.rating:not(:checked) > label {
-    float: right;
-    cursor: pointer;
-    font-size: 30px;
-    color: #666;
-}
-
-    .rating:not(:checked) > label:before {
-        content: '★';
+    .rating input {
+        display: none;
     }
 
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-    color: #e58e09;
-}
+    .rating label {
+        position: relative;
+        width: 1em;
+        font-size: 2rem;
+        color: #FFD700;
+        cursor: pointer;
+    }
 
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-    color: #ff9e0b;
-}
+        .rating label::before {
+            content: "★";
+            position: absolute;
+            opacity: 0;
+        }
 
-.rating > input:checked ~ label {
-    color: #ffa723;
-}
-.MainContainer{
-    background-color:teal;
-    width:100vh;
-    height:100vh;
-   
-}
+        .rating label:hover::before,
+        .rating label:hover ~ label::before {
+            opacity: 1 !important;
+        }
+
+    .rating input:checked ~ label::before {
+        opacity: 1;
+    }
+
+    .rating input:checked + label::before {
+        opacity: 1;
+    }
+
+    .rating label:hover::before,
+    .rating label:hover ~ label::before,
+    .rating input:checked ~ label::before,
+    .rating input:checked + label::before {
+        color: #FFD700;
+    }

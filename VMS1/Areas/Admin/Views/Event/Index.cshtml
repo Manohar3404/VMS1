@@ -1,74 +1,134 @@
-﻿@model EventViewModel
- 
-<div class="container">
+﻿
+@model EventViewModel
+
+<div class="container mt-4">
     <div class="row d-flex">
-        <div class="col-6">
+        <div class="col-md-6">
             <h1 class="h4 m-0">Event Details</h1>
         </div>
-        @if(User.IsInRole(SD.Role_Admin))
+        @if (User.IsInRole(SD.Role_Admin))
         {
-            <div class="col-6 text-end pb-2">
-                <a asp-controller="Event" asp-action="Create" class="btn btn-dark">Create Event</a>
-            </div>
-        }else
-        {
-
-            <div class="col-6 text-end pb-2">
-                <a asp-area="User" asp-controller="Registration" asp-action="RegisteredEvents" class="btn btn-dark">Registered Events</a>
+            <div class="col-md-6 text-end pb-2">
+                <a asp-controller="Event" asp-action="Create" class="btn btn-dark">
+                    <i class="bi bi-plus-circle"></i> Create Event
+                </a>
             </div>
         }
-
-    </div>
-</div>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Event Name</th>
-            <th>City</th>
-            <th>Description</th>
-            <th>Date</th>
-           
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var obj in Model.Events)
+        else
         {
+            <div class="col-md-6 text-end pb-2">
+                <a asp-area="User" asp-controller="Registration" asp-action="RegisteredEvents" class="btn btn-dark">
+                    <i class="bi bi-list-check"></i> Registered Events
+                </a>
+            </div>
+        }
+    </div>
+
+    <!-- Filter Form -->
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <input type="text" id="nameFilter" class="form-control" placeholder="Event Name" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" id="cityFilter" class="form-control" placeholder="City" />
+        </div>
+        <div class="col-md-3">
+            <input type="date" id="dateFilter" class="form-control" placeholder="Date" />
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
             <tr>
-                <td>@obj.Name</td>
-                <td>@obj.City</td>
-                <td>@obj.Description</td>
-                <td>@obj.Date</td>
-
-
-                <td class="d-flex align-items-center justify-content-center">
-                    @if (User.IsInRole(SD.Role_Admin))
-                    {
-                        <div class="d-flex align-items-center" style="gap: 10px;">
-                            <a class="btn btn-dark " asp-controller="Event" asp-action="Edit" asp-route-id="@obj.Id"><i class="bi bi-pencil-square"></i>Edit</a>
-                            <a class="btn btn-danger " asp-controller="Event" asp-action="Delete" asp-route-id="@obj.Id"><i class="bi bi-trash3-fill"></i>Delete</a>
-                        </div>
-                    }
-                    else
-                    {
-                        @if (!Model.EventIds.ContainsKey(obj.Id))
+                <th>Event Name</th>
+                <th>City</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="eventsTableBody">
+            @foreach (var obj in Model.Events)
+            {
+                <tr>
+                    <td class="event-name">@obj.Name</td>
+                    <td class="event-city">@obj.City</td>
+                    <td class="event-description">@obj.Description</td>
+                    <td class="event-date">@obj.Date.ToString("yyyy-MM-dd")</td>
+                    <td class="d-flex align-items-center justify-content-center">
+                        @if (User.IsInRole(SD.Role_Admin))
                         {
-                            <div class="d-flex align-items-center" style="gap: 10px; text-align:center">
-                                <a class="btn btn-success" asp-area="User" asp-controller="Registration" asp-action="Register" asp-route-id="@obj.Id"><i class="bi bi-pencil-square"></i>Register</a>
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                                <a class="btn btn-dark" asp-controller="Event" asp-action="Edit" asp-route-id="@obj.Id">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                <a class="btn btn-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@obj.Id">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </a>
                             </div>
                         }
                         else
                         {
-                            <div class="d-flex align-items-center" style="gap: 10px; text-align:center">
-                                <a class="btn btn-danger" asp-area="User" asp-controller="Registration" asp-action="Cancel" asp-route-id="@Model.EventIds[obj.Id]"><i class="bi bi-pencil-square"></i>Cancel</a>
-                            </div>
+                            @if (!Model.EventIds.ContainsKey(obj.Id))
+                            {
+                                <div class="d-flex align-items-center" style="gap: 10px; text-align:center">
+                                    <a class="btn btn-success" asp-area="User" asp-controller="Registration" asp-action="Register" asp-route-id="@obj.Id">
+                                        <i class="bi bi-pencil-square"></i> Register
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex align-items-center" style="gap: 10px; text-align:center">
+                                    <a class="btn btn-danger" asp-area="User" asp-controller="Registration" asp-action="Cancel" asp-route-id="@Model.EventIds[obj.Id]">
+                                        <i class="bi bi-x-circle"></i> Cancel
+                                    </a>
+                                </div>
+                            }
                         }
-                    }
-                </td>
-                
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-            </tr>
-          
+<!-- Include jQuery and Bootstrap JS for responsive design and icons -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Attach input event listeners to filter input fields
+        $('#nameFilter, #cityFilter, #dateFilter').on('input', function () {
+            filterEvents(); // Call the filter function on input change
+        });
+
+        // Function to filter events based on input values
+        function filterEvents() {
+            // Get the values from the filter input fields
+            const nameFilter = $('#nameFilter').val().toLowerCase();
+            const cityFilter = $('#cityFilter').val().toLowerCase();
+            const dateFilter = $('#dateFilter').val();
+
+            // Iterate over each row in the events table body
+            $('#eventsTableBody tr').each(function () {
+                // Get the text content of each cell in the current row
+                const name = $(this).find('.event-name').text().toLowerCase();
+                const city = $(this).find('.event-city').text().toLowerCase();
+                const date = $(this).find('.event-date').text();
+
+                // Check if the current row matches the filter criteria
+                const nameMatch = !nameFilter || name.includes(nameFilter);
+                const cityMatch = !cityFilter || city.includes(cityFilter);
+                const dateMatch = !dateFilter || date === dateFilter;
+
+                // Show or hide the row based on the filter criteria
+                if (nameMatch && cityMatch && dateMatch) {
+                    $(this).show(); // Show the row if it matches
+                } else {
+                    $(this).hide(); // Hide the row if it doesn't match
+                }
+            });
         }
-    </tbody>
-</table>
+    });
+</script>

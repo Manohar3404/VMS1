@@ -9,11 +9,54 @@
     <link rel="stylesheet" href="~/css/star.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/AdminPanel.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VMS1.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for header and footer */
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+            .navbar-dark .navbar-nav .nav-link:hover,
+            .navbar-dark .navbar-nav .nav-link:focus {
+                color: #fff;
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            .navbar-dark .navbar-nav .nav-link.active {
+                color: #fff;
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+        .footer {
+            padding: 0.5rem 0; /* Reduced padding to make the footer height similar to the header */
+        }
+
+            .footer a {
+                color: rgba(255, 255, 255, 0.8);
+                transition: color 0.3s ease-in-out;
+            }
+
+                .footer a:hover,
+                .footer a:focus {
+                    color: #fff;
+                }
+        /* Ensure login and register links are visible */
+        .navbar-dark .navbar-nav .nav-link.text-white {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+            .navbar-dark .navbar-nav .nav-link.text-white:hover,
+            .navbar-dark .navbar-nav .nav-link.text-white:focus {
+                color: #fff;
+            }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark sticky-top">
             <div class="container-fluid">
+
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Volunteer Management</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -21,32 +64,53 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if(User.IsInRole(SD.Role_Admin)) {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="bi bi-house-door"></i> Home
+                                </a>
+                            </li>
+                        }
+                        else {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="User" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door"></i> Home
+                            </a>
+                        </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="User" asp-controller="Home" asp-action="Privacy">
+                                <i class="bi bi-shield-lock"></i> Privacy
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Event" asp-action="Index">Events</a>
+                            <a class="nav-link" asp-area="Admin" asp-controller="Event" asp-action="Index">
+                                <i class="bi bi-calendar-event"></i> Events
+                            </a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial"/>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container mt-3">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer bg-dark p-0 text-white">
         <div class="container">
-            &copy; 2025 - VMS11 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="d-flex justify-content-between">
+                <span>&copy; 2025 - VMS11</span>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                    <i class="bi bi-shield-lock"></i> Privacy
+                </a>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

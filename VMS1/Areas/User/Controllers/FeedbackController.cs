@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using VMS1.Models;
 using VMS1.Models.ViewModels;
 using VMS1.Repository.IRepository;
@@ -23,9 +24,11 @@ namespace VMS1.Areas.User.Controllers
         }
         public IActionResult AddFeedback(int id)
         {
-            if(id == null) return NotFound();
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (id == null) return NotFound();
             VolunteerRegistrations obj = _unitwork.VolunteerRegistrations.Get(s => s.RegistrationId == id,"Event");
-            Feedback? feedback = _unitwork.Feedback.Get(s => obj.Event.Id == s.EventId);
+            Feedback? feedback = _unitwork.Feedback.Get(s => obj.Event.Id == s.EventId && s.VolunteerId==userId);
             var feedbackVM= new FeedbackViewModel()
             {
                 VolunteerRegistrations = obj,
