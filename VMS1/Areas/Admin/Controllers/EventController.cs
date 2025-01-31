@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Security.Claims;
 using VMS1.Data;
 using VMS1.Models;
@@ -15,17 +16,22 @@ namespace VMS1.Areas.Admin.Controllers
     {
      
         private readonly IUnitWork _unitwork;
+        private readonly HttpClient _httpClient;
+        Uri baseAddress = new Uri("https://localhost:7128/api/");
         public EventController(IUnitWork unitwork)
         {
          
             _unitwork = unitwork;
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = baseAddress;
         }
+       
         [Authorize(Roles = "User,Admin")]
         public IActionResult Index()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             string userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-            IEnumerable<Event> objList = _unitwork.Events.GetAll(null,null).ToList();
+            IEnumerable<Event> objList = _unitwork.Events.GetAll(null, null).ToList();
             Dictionary<int, int> registeredList = _unitwork.VolunteerRegistrations
                 .GetAll(x => x.VolunteerId == userId, "Event")
                 .Select(x => new { x.EventId, x.RegistrationId })

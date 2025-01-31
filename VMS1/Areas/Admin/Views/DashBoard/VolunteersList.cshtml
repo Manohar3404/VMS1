@@ -5,12 +5,7 @@
         <div class="col-6">
             <h1 class="h4 m-0">Volunteer Details</h1>
         </div>
-        @if (User.IsInRole(SD.Role_Admin))
-        {
-            <div class="col-6 text-end pb-2">
-                <a asp-controller="Volunteer" asp-action="Create" class="btn btn-dark">Create Volunteer</a>
-            </div>
-        }
+
     </div>
 </div>
 
@@ -36,7 +31,7 @@
                     @if (User.IsInRole(SD.Role_Admin))
                     {
                         <div class="d-flex align-items-center" style="gap: 10px;">
-                            <a class="btn btn-dark" asp-controller="Volunteer" asp-action="View" asp-route-id="@obj.Id"><i class="bi bi-eye"></i> View</a>
+                            <a class="btn btn-dark" asp-controller="Dashboard" asp-action="Profile" asp-route-id="@obj.Id"><i class="bi bi-eye"></i> View</a>
                         </div>
                     }
                 </td>

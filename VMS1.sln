@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMS1", "VMS1\VMS1.csproj", "{1EE50377-A0AF-4D79-A11F-CDBF5B30175E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VMS1", "VMS1\VMS1.csproj", "{1EE50377-A0AF-4D79-A11F-CDBF5B30175E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedbackServices1", "FeedbackServices1\FeedbackServices1.csproj", "{DD1A00E1-70E4-499D-9C60-3C2D476F6700}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1EE50377-A0AF-4D79-A11F-CDBF5B30175E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EE50377-A0AF-4D79-A11F-CDBF5B30175E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EE50377-A0AF-4D79-A11F-CDBF5B30175E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD1A00E1-70E4-499D-9C60-3C2D476F6700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD1A00E1-70E4-499D-9C60-3C2D476F6700}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD1A00E1-70E4-499D-9C60-3C2D476F6700}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD1A00E1-70E4-499D-9C60-3C2D476F6700}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

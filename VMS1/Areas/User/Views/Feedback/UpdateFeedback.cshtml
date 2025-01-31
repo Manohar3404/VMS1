@@ -27,7 +27,7 @@
         <input type="hidden" asp-for="@Model.Feedback.CreatedAt" value="@Model.Feedback.CreatedAt" />
         @if (Model.Feedback.FeedbackId != 0)
         {
-            <button type="submit" asp-action="AddFeedback" asp-controller="Feedback" asp-area="User" class="btn btn-primary mt-2">
+            <button type="submit" asp-action="UpdateFeedback" asp-controller="Feedback" asp-area="User" class="btn btn-primary mt-2">
                 Update
             </button>
             <a asp-controller="Feedback" asp-action="Delete" asp-route-id="@Model.Feedback.FeedbackId" class="btn btn-danger mt-2">Delete</a>

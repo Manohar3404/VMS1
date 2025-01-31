@@ -1,8 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Event>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int c = 0;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-  
-</div>
+    <!-- Hero Section -->
+    <section id="home" class="text-center">
+        <div class="container">
+            <h1 class="display-3">Join Our Volunteer Community</h1>
+            <p class="lead">Empowering people to make a difference in their communities through meaningful volunteer work.</p>
+        <a href="/Identity/Account/Login" class="btn btn-lg btn-light">Get Started</a>
+        </div>
+    </section>
+
+    <!--  -->
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container text-center">
+            <h2>About Us</h2>
+            <p>We connect individuals with volunteer opportunities that align with their interests, skills, and schedules. Our goal is to support both volunteers and organizations in creating meaningful connections to foster stronger communities.</p>
+            <div class="extra-content">
+                <p>Through our platform, volunteers can easily find events, track their hours, and collaborate with like-minded individuals. Organizations benefit from streamlined volunteer management tools that simplify the coordination and reporting processes.</p>
+                <p>Join us today to make a difference!</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Events Carousel Section -->
+    <section id="events" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Upcoming Events</h2>
+            <div id="eventsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                <div class="carousel-inner">
+                    @foreach(var obj in Model){
+                        <div class="carousel-item text-center p-4 border rounded text-white @(c==0?"active":"")">
+                            <h3>@obj.Name</h3>
+                            <p>Date: @obj.Date.ToString()</p>
+                            <p>Location: @obj.City</p>
+                            <a asp-area="User" asp-controller="Registration" asp-action="Register" asp-route-id="@obj.Id" class="btn btn-primary mt-3">View Details</a>
+                    </div>
+                    
+                {
+                    c++;}
+                }
+                   
+                   
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    
+
+   
