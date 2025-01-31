@@ -171,6 +171,10 @@ namespace VMS1.Areas.User.Controllers
             _unitwork.Feedback.Remove(obj);
             _unitwork.Save();
             return RedirectToAction("RegisteredEvents", "Registration", new { area = "User" });
+
+            //gsdhdm
+
+
         }
     }
 }
