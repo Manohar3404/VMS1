@@ -96,6 +96,10 @@ namespace VMS1.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFeedback(FeedbackViewModel obj)
         {
+            if (obj.Feedback.FeedbackId == 0)
+            {
+                obj.Feedback.CreatedAt = DateOnly.FromDateTime(DateTime.Now);
+            }
             if (!ModelState.IsValid)
             {
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -121,7 +125,17 @@ namespace VMS1.Areas.User.Controllers
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    // Handle the error appropriately
+                    var claimsIdentity = (ClaimsIdentity)User.Identity;
+                    var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    VolunteerRegistrations ob = _unitwork.VolunteerRegistrations
+                        .Get(s => s.EventId == obj.Feedback.EventId && s.VolunteerId == userId, "Event");
+
+                    obj = new FeedbackViewModel()
+                    {
+                        VolunteerRegistrations = ob,
+                        Feedback = obj.Feedback
+                    };
+                    // Handle the error 
                     ModelState.AddModelError(string.Empty, "Failed to post feedback to the API.");
                     return View(obj); // Return the view with the model to show validation errors
                 }
