@@ -37,7 +37,7 @@ namespace VMS1.Areas.User.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Feedbacks()
         {
-            IEnumerable<Feedback> feedbacks = _unitwork.Feedbacks.GetAll(null, "Event,ApplicationUser");
+            IEnumerable<Feedback> feedbacks = new List<Feedback>() { new Feedback() };
             HttpResponseMessage response = _httpClient.GetAsync("Feedback/GetFeedbacks").Result;
 
             if (response.IsSuccessStatusCode)
@@ -160,21 +160,42 @@ namespace VMS1.Areas.User.Controllers
             return RedirectToAction("RegisteredEvents", "Registration", new { area = "User" });
         }
 
-      
-        public IActionResult Delete(int? id)
+
+        //public IActionResult Delete(int? id)
+        //{
+        //    var obj = _unitwork.Feedback.Get(s => s.FeedbackId == id);
+        //    if (obj == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    _unitwork.Feedback.Remove(obj);
+        //    _unitwork.Save();
+        //    return RedirectToAction("RegisteredEvents", "Registration", new { area = "User" });
+
+        //    //gsdhd
+        //}
+        public async Task<IActionResult> Delete(int? id)
         {
-            var obj = _unitwork.Feedback.Get(s => s.FeedbackId == id);
-            if (obj == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            _unitwork.Feedback.Remove(obj);
+
+            // Send DELETE request to the API
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"Feedback/DeleteFeedback?id={id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // Handle the error appropriately
+                ModelState.AddModelError(string.Empty, "Failed to delete feedback from the API.");
+                return RedirectToAction("RegisteredEvents", "Registration", new { area = "User" });
+            }
+
+            // Assuming the API call was successful
+            //_unitwork.Feedback.Remove(_unitwork.Feedback.Get(s => s.FeedbackId == id));
             _unitwork.Save();
+
             return RedirectToAction("RegisteredEvents", "Registration", new { area = "User" });
-
-            //gsdhdm
-
-
         }
     }
 }
