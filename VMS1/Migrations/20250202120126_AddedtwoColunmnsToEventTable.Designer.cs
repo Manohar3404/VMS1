@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VMS1.Data;
 
@@ -11,9 +12,11 @@ using VMS1.Data;
 namespace VMS1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250202120126_AddedtwoColunmnsToEventTable")]
+    partial class AddedtwoColunmnsToEventTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,9 +260,6 @@ namespace VMS1.Migrations
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeOnly>("Time")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 

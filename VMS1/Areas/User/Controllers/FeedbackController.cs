@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace VMS1.Areas.User.Controllers
     {
         private readonly IUnitWork _unitwork;
         private readonly HttpClient _httpClient;
-        Uri baseAddress = new Uri("https://localhost:7003/api/");
+        Uri baseAddress = new("https://localhost:7003/api/");
 
         public FeedbackController(IUnitWork unitwork)
         {
@@ -37,7 +38,7 @@ namespace VMS1.Areas.User.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Feedbacks()
         {
-            IEnumerable<Feedback> feedbacks = new List<Feedback>() { new Feedback() };
+            IEnumerable<Feedback> feedbacks = new List<Feedback>() { new() };
             HttpResponseMessage response = _httpClient.GetAsync("Feedback/GetFeedbacks").Result;
 
             if (response.IsSuccessStatusCode)
@@ -46,6 +47,7 @@ namespace VMS1.Areas.User.Controllers
                 feedbacks = JsonConvert.DeserializeObject<List<Feedback>>(data);
             }
             var events = _unitwork.Events.GetAll();
+            ViewBag.Events = events;
             var users = _unitwork.ApplicationUsers.GetAll();
 
             // Join feedbacks with Event and ApplicationUser data
@@ -72,8 +74,8 @@ namespace VMS1.Areas.User.Controllers
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-            if (id == default(int)) return NotFound();
-            IEnumerable<Feedback> feedbacks = new List<Feedback>() { new Feedback() }; //_unitwork.Feedback.GetAll(null, "Event,ApplicationUser").ToList();
+            if (id == null) return NotFound();
+            IEnumerable<Feedback> feedbacks = new List<Feedback>() { new () }; //_unitwork.Feedback.GetAll(null, "Event,ApplicationUser").ToList();
             HttpResponseMessage response = _httpClient.GetAsync("Feedback/GetFeedbacks").Result;
 
             if (response.IsSuccessStatusCode)
@@ -140,7 +142,7 @@ namespace VMS1.Areas.User.Controllers
                     return View(obj); // Return the view with the model to show validation errors
                 }
 
-                _unitwork.Feedback.Add(obj.Feedback);
+               
             }
             else
             {
@@ -174,6 +176,7 @@ namespace VMS1.Areas.User.Controllers
 
         //    //gsdhd
         //}
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -191,9 +194,7 @@ namespace VMS1.Areas.User.Controllers
                 return RedirectToAction("RegisteredEvents", "Registration", new { area = "User" });
             }
 
-            // Assuming the API call was successful
-            //_unitwork.Feedback.Remove(_unitwork.Feedback.Get(s => s.FeedbackId == id));
-            _unitwork.Save();
+          
 
             return RedirectToAction("RegisteredEvents", "Registration", new { area = "User" });
         }

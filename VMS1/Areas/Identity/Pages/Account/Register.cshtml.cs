@@ -155,6 +155,7 @@ namespace VMS1.Areas.Identity.Pages.Account
                     else
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
+                        returnUrl = Url.Content("~/Admin/DashBoard/Index");
                         user.RoleSpecifier = 1;
                     }
 

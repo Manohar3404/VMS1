@@ -33,7 +33,7 @@ namespace VMS1.Areas.User.Controllers
 
             if (ModelState.IsValid)
             {
-                VolunteerRegistrations reg = new VolunteerRegistrations()
+                VolunteerRegistrations reg = new ()
                 {
                     EventId = id,
                     VolunteerId = userId.ToString(),

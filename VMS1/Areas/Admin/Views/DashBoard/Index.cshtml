@@ -1,14 +1,15 @@
 ﻿<!-- Welcome Section -->
+@model ApplicationUser
 <style>
-    .ICon-Container{
+    .ICon-Container {
         margin-bottom: 50px;
     }
 </style>
 <div class="container mt-4">
     <div class="welcome-section text-center">
-        <h1>Welcome, Admin!</h1>
+        <h1>Welcome, @Model.Name</h1>
         <p class="lead text-dark">Manage your platform efficiently and effortlessly from this dashboard.</p>
-        <button class="btn btn-primary mt-3">Get Started</button>
+        <button id="getStarted" class="btn btn-primary mt-3">Get Started</button>
     </div>
 
     <!-- Icon Cards Section -->
@@ -44,12 +45,24 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    var animation = () => {
         const cards = document.querySelectorAll('.icon-card');
         cards.forEach((card, index) => {
             setTimeout(() => {
                 card.classList.add('animate');
             }, index * 200); // Delay each card's animation
         });
+    };
+    
+    document.addEventListener("DOMContentLoaded", animation);
+    document.getElementById("getStarted").addEventListener("click", () => {
+        const cards = document.querySelectorAll('.icon-card');
+        cards.forEach((card, index) => {
+           
+                card.classList.remove('animate');
+          // Delay each card's animation
+           
+        });
+        animation();
     });
 </script>

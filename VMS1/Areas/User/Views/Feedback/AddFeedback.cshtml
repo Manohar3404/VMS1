@@ -30,7 +30,7 @@
             <button type="submit" asp-action="AddFeedback" asp-controller="Feedback" asp-area="User" class="btn btn-primary mt-2">
                 Update
             </button>
-            <a asp-controller="Feedback" asp-action="Delete" asp-route-id="@Model.Feedback.FeedbackId" class="btn btn-danger mt-2">Delete</a>
+            <a asp-area="User" asp-controller="Feedback" asp-action="Delete" asp-route-id="@Model.Feedback.FeedbackId" class="btn btn-danger mt-2">Delete</a>
         }
         else
         {

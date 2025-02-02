@@ -11,17 +11,19 @@ namespace VMS1.Areas.Admin.Controllers
     {
         private readonly IUnitWork _unitWork;
         private readonly HttpClient _httpClient;
-        //Uri baseAddress = new Uri("https://localhost:7013/api/");
+       
         public DashBoardController(IUnitWork unitWork)
         {
             _unitWork = unitWork;
-            //_httpClient=new HttpClient();
-            //_httpClient.BaseAddress = baseAddress;
+           
         }
         public IActionResult Index()
         {
-            
-            return View();
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ApplicationUser obj = _unitWork.ApplicationUsers.Get(x => x.Id == userId);
+
+            return View(obj);
         }
         [Area("Admin")]
         public IActionResult VolunteersList()

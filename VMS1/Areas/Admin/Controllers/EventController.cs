@@ -17,13 +17,12 @@ namespace VMS1.Areas.Admin.Controllers
      
         private readonly IUnitWork _unitwork;
         private readonly HttpClient _httpClient;
-        Uri baseAddress = new Uri("https://localhost:7128/api/");
+        
         public EventController(IUnitWork unitwork)
         {
          
             _unitwork = unitwork;
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = baseAddress;
+            
         }
        
         [Authorize(Roles = "User,Admin")]
@@ -36,7 +35,7 @@ namespace VMS1.Areas.Admin.Controllers
                 .GetAll(x => x.VolunteerId == userId, "Event")
                 .Select(x => new { x.EventId, x.RegistrationId })
                 .ToDictionary(x => x.EventId, x => x.RegistrationId);
-            EventViewModel obj = new EventViewModel()
+            EventViewModel obj = new ()
             {
                 Events = objList,
                 EventIds = registeredList
