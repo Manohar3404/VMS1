@@ -1,41 +1,81 @@
 ﻿@model IEnumerable<ApplicationUser>
 
-<div class="container">
+<div class="container mt-4">
     <div class="row d-flex">
-        <div class="col-6">
-            <h1 class="h4 m-0">Volunteer Details</h1>
+        <div class="col-md-12">
+            <h1 class="h4 m-0">Volunteers List</h1>
         </div>
+    </div>
 
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Filter by Event</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="eventFilter">Select an Event:</label>
+                        <select id="eventFilter" class="form-control">
+                            <option value="">All Events</option>
+                            @foreach (var even in ViewBag.Events)
+                            {
+                                @if(even.Id==(int)ViewBag.specifier)
+                                {
+                                    <option value="@even.Id" selected>@even.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@even.Id">@even.Name</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <table class="table table-bordered table-striped" id="volunteerTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Phone Number</th>
+                                <th scope="col">Email</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var volunteer in Model)
+                            {
+                                <tr>
+                                    <td>@volunteer.Name</td>
+                                    <td>@volunteer.City</td>
+                                    <td>@volunteer.PhoneNumber</td>
+                                    <td>@volunteer.Email</td>
+                                    <td>
+                                        <a asp-action="Profile" asp-controller="Dashboard" asp-area="Admin" asp-route-id="@volunteer.Id" class="btn btn-dark">View Profile</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Volunteer Name</th>
-            <th>City</th>
-            <th>Email</th>
-            <th>Phone</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var obj in Model)
-        {
-            <tr>
-                <td>@obj.Name</td>
-                <td>@obj.City</td>
-                <td>@obj.Email</td>
-                <td>@obj.PhoneNumber</td>
+<!-- Include jQuery and Bootstrap JS for responsive design and functionality -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#eventFilter').change(function () {
+            var eventId = $(this).val();
+            if (eventId) {
 
-                <td class="d-flex align-items-center justify-content-center">
-                    @if (User.IsInRole(SD.Role_Admin))
-                    {
-                        <div class="d-flex align-items-center" style="gap: 10px;">
-                            <a class="btn btn-dark" asp-controller="Dashboard" asp-action="Profile" asp-route-id="@obj.Id"><i class="bi bi-eye"></i> View</a>
-                        </div>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                window.location.href = "https://localhost:7152/Admin/Dashboard/VolunteersList/"+eventId;
+             } else {
+                window.location.href = "https://localhost:7152/Admin/Dashboard/VolunteersList/";
+            }
+        });
+    });
+</script>

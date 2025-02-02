@@ -21,7 +21,7 @@ namespace VMS1.Areas.User.Controllers
     {
         private readonly IUnitWork _unitwork;
         private readonly HttpClient _httpClient;
-        Uri baseAddress = new("https://localhost:7003/api/");
+        readonly Uri  baseAddress = new("https://localhost:7003/api/");
 
         public FeedbackController(IUnitWork unitwork)
         {
@@ -38,7 +38,7 @@ namespace VMS1.Areas.User.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Feedbacks()
         {
-            IEnumerable<Feedback> feedbacks = new List<Feedback>() { new() };
+            IEnumerable<Feedback> feedbacks = [];
             HttpResponseMessage response = _httpClient.GetAsync("Feedback/GetFeedbacks").Result;
 
             if (response.IsSuccessStatusCode)
@@ -75,7 +75,7 @@ namespace VMS1.Areas.User.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (id == null) return NotFound();
-            IEnumerable<Feedback> feedbacks = new List<Feedback>() { new () }; //_unitwork.Feedback.GetAll(null, "Event,ApplicationUser").ToList();
+            IEnumerable<Feedback> feedbacks = []; //_unitwork.Feedback.GetAll(null, "Event,ApplicationUser").ToList();
             HttpResponseMessage response = _httpClient.GetAsync("Feedback/GetFeedbacks").Result;
 
             if (response.IsSuccessStatusCode)
