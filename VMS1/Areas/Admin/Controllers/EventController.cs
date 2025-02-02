@@ -53,8 +53,10 @@ namespace VMS1.Areas.Admin.Controllers
             {
                 _unitwork.Events.Add(obj);
                 _unitwork.Save();
+                TempData["SuccessMessage"] = "Event Created Successfully";
                 return RedirectToAction("Index");
             }
+            TempData["ErrorMessage"] = "Error Occured While Creating Event";
             return View(obj);
 
         }
@@ -74,8 +76,12 @@ namespace VMS1.Areas.Admin.Controllers
             {
                 _unitwork.Events.Update(obj);
                 _unitwork.Save();
+                TempData["SuccessMessage"] = "Event Updated Successfully";
+
                 return RedirectToAction("Index");
             }
+            TempData["ErrorMessage"] = "Error Occured While Updating Event";
+
             return View(obj);
         }
         public IActionResult Delete(int? id)
@@ -91,9 +97,18 @@ namespace VMS1.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Delete(Event obj)
         {
-            _unitwork.Events.Remove(obj);
-            _unitwork.Save();
-            return RedirectToAction("Index");
+            if (obj != null)
+            {
+                _unitwork.Events.Remove(obj);
+                _unitwork.Save();
+                TempData["SuccessMessage"] = "Event Deleted Successfully";
+
+                return RedirectToAction("Index");
+            }else
+            {
+                TempData["ErrorMessage"] = "Error Occured While Deleting Event";
+                return View(obj);
+            }
         }
     }
 }
