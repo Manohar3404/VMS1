@@ -1,19 +1,46 @@
-﻿@model Event
+﻿@model VMS1.Models.Event
 
+<div class="container mt-5">
+    <div class="card shadow-sm" style="max-width: 600px; margin: auto;">
+        <div class="card-header bg-dark text-white">
+            <h1 class="h4">@Model.Name</h1>
+        </div>
 
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
-                <h1>@Model.Name</h1>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <p><strong>City:</strong> @Model.City</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>State:</strong> @Model.State</p>
+                </div>
             </div>
-            <div class="card-body">
-                <p><strong>City:</strong> @Model.City</p>
-                <p><strong>Description:</strong> @Model.Description</p>
-                <p><strong>Date:</strong> @Model.Date.ToString("yyyy-MM-dd")</p>
-                <form asp-action="Register" method="post">
-                    <input type="hidden" name="eventId" value="@Model.Id" />
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </form>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <p><strong>Date:</strong> @Model.Date.ToString("yyyy-MM-dd")</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Time:</strong> @Model.Time.ToString("hh\\:mm")</p>
+                </div>
             </div>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <p><strong>Address:</strong> @Model.Address</p>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <p><strong>Description:</strong> @Model.Description</p>
+                </div>
+            </div>
+            <form asp-action="Register"  method="post">
+                <input type="hidden" name="eventId" value="@Model.Id" />
+                <button type="submit" class="btn btn-dark btn-lg w-50 ">Register</button>
+            </form>
         </div>
     </div>
+</div>
+
+<!-- Include Bootstrap CSS for improved styling -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+

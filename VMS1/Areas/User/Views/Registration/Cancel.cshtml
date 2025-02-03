@@ -1,19 +1,49 @@
 ﻿@model VolunteerRegistrations
 
 
+
 <div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h1>@Model.Event.Name</h1>
+    <div class="card shadow-sm" style="max-width: 600px; margin: auto;">
+        <div class="card-header bg-dark text-white">
+            <h1 class="h4">@Model.Event.Name</h1>
         </div>
+
         <div class="card-body">
-            <p><strong>City:</strong> @Model.Event.City</p>
-            <p><strong>Description:</strong> @Model.Event.Description</p>
-            <p><strong>Date:</strong> @Model.Event.Date.ToString("yyyy-MM-dd")</p>
-            <form asp-action="Cancel" method="post">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <p><strong>City:</strong> @Model.Event.City</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>State:</strong> @Model.Event.State</p>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <p><strong>Date:</strong> @Model.Event.Date.ToString("yyyy-MM-dd")</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Time:</strong> @Model.Event.Time.ToString("hh\\:mm")</p>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <p><strong>Address:</strong> @Model.Event.Address</p>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <p><strong>Description:</strong> @Model.Event.Description</p>
+                </div>
+            </div>
+            <form asp-action="Cancel"  method="post">
                 <input type="hidden" name="eventId" value="@Model.RegistrationId" />
-                <button type="submit" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-danger btn-lg w-50 ">Cancel</button>
             </form>
         </div>
     </div>
 </div>
+
+<!-- Include Bootstrap CSS for improved styling -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+
