@@ -1,9 +1,17 @@
-﻿<!-- Welcome Section -->
-@model ApplicationUser
+﻿@model ApplicationUser
 <style>
     .ICon-Container {
         margin-bottom: 50px;
     }
+
+    .icon-card {
+        background-color: white;
+        transition: transform 0.3s ease;
+    }
+
+        .icon-card:hover {
+            transform: scale(1.05);
+        }
 </style>
 <div class="container mt-4">
     <div class="welcome-section text-center">
@@ -32,7 +40,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-4 ">
+        <div class="col-md-4">
             <a id="FeedbackLink" asp-action="Feedbacks" asp-controller="Feedback" asp-area="User" class="text-decoration-none">
                 <div class="icon-card text-center p-4 border rounded shadow-sm">
                     <i class="bi bi-chat-dots display-4"></i>
@@ -53,15 +61,12 @@
             }, index * 200); // Delay each card's animation
         });
     };
-    
+
     document.addEventListener("DOMContentLoaded", animation);
     document.getElementById("getStarted").addEventListener("click", () => {
         const cards = document.querySelectorAll('.icon-card');
         cards.forEach((card, index) => {
-           
-                card.classList.remove('animate');
-          // Delay each card's animation
-           
+            card.classList.remove('animate');
         });
         animation();
     });
